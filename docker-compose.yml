@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  database:
+    image: 'mysql:latest'
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: classicmodels
+      MYSQL_USER: Chrisa
+      MYSQL_PASSWORD: Chrisa1234 # The MySQL password
+      MYSQL_ROOT_PASSWORD: Chrisa1234 # The MySql Root Password
