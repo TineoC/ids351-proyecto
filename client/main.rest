@@ -1,0 +1,18 @@
+GET http://localhost:3000
+
+###
+
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+    "productCode": "SHAB-10245",
+    "productName": "Hyundai Sonata 2024",
+    "productLine": "Classic Cars",
+    "productScale": "1:12",
+    "productVendor": "Exoto Design",
+    "productDescription": "Lo que tu quieras",
+    "quantityInStock": 4800,
+    "buyPrice": 568000,
+    "MSRP": 215.60
+}
