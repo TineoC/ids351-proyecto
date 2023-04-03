@@ -12,6 +12,7 @@
 - [Express.js](https://expressjs.com/es/)
 - [MySQL](https://www.mysql.com/)
 - [Prisma](https://www.prisma.io/)
+- [Docker](https://www.docker.com/)
 
 ## Installation guide
 
@@ -32,3 +33,20 @@ $ npm run dev
 ```
 
 4. Your project is up and running 🎉
+
+## Setup your dev environment
+
+Now we're starting with the hard part
+
+1. First make sure you have [Docker](https://www.docker.com/) installed in your machine.
+2. Rename the file [.env.example](./.env.example) to just ".env"
+   1. Here, you need to replace the ROOT_PASSWORD field for the password your project manager will give you.
+3. Run ```docker compose up -d```
+4. If everything went fine your db is started in port 3307
+5. Now you need to connect your db with prisma
+6. For this, run 
+
+```
+$ npx prisma pull
+$ npx prisma generate
+```
