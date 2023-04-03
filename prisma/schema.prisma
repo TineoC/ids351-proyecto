@@ -1,13 +1,13 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
-model Customers {
+model Customer {
   customerNumber         Int        @id
   customerName           String     @db.VarChar(50)
   contactLastName        String     @db.VarChar(50)
@@ -21,14 +21,15 @@ model Customers {
   country                String     @db.VarChar(50)
   salesRepEmployeeNumber Int?
   creditLimit            Decimal?   @db.Decimal(10, 2)
-  employees              Employees? @relation(fields: [salesRepEmployeeNumber], references: [employeeNumber], onDelete: NoAction, onUpdate: NoAction, map: "customers_ibfk_1")
-  orders                 Orders[]
-  payments               payments[]
+  employees              Employee? @relation(fields: [salesRepEmployeeNumber], references: [employeeNumber], onDelete: NoAction, onUpdate: NoAction, map: "customers_ibfk_1")
+  orders                 Order[]
+  payments               Payment[]
 
   @@index([salesRepEmployeeNumber], map: "salesRepEmployeeNumber")
+  @@map("customers")
 }
 
-model Employees {
+model Employee {
   employeeNumber  Int         @id
   lastName        String      @db.VarChar(50)
   firstName       String      @db.VarChar(50)
@@ -37,16 +38,17 @@ model Employees {
   officeCode      String      @db.VarChar(10)
   reportsTo       Int?
   jobTitle        String      @db.VarChar(50)
-  customers       Customers[]
-  employees       Employees?  @relation("employeesToemployees", fields: [reportsTo], references: [employeeNumber], onDelete: NoAction, onUpdate: NoAction, map: "employees_ibfk_1")
-  other_employees Employees[] @relation("employeesToemployees")
-  offices         Offices     @relation(fields: [officeCode], references: [officeCode], onDelete: NoAction, onUpdate: NoAction, map: "employees_ibfk_2")
+  customers       Customer[]
+  employees       Employee?  @relation("employeesToemployees", fields: [reportsTo], references: [employeeNumber], onDelete: NoAction, onUpdate: NoAction, map: "employees_ibfk_1")
+  other_employees Employee[] @relation("employeesToemployees")
+  offices         Office     @relation(fields: [officeCode], references: [officeCode], onDelete: NoAction, onUpdate: NoAction, map: "employees_ibfk_2")
 
   @@index([officeCode], map: "officeCode")
   @@index([reportsTo], map: "reportsTo")
+  @@map("employees")
 }
 
-model Offices {
+model Office {
   officeCode   String      @id @db.VarChar(10)
   city         String      @db.VarChar(50)
   phone        String      @db.VarChar(50)
@@ -56,23 +58,27 @@ model Offices {
   country      String      @db.VarChar(50)
   postalCode   String      @db.VarChar(15)
   territory    String      @db.VarChar(10)
-  employees    Employees[]
+  employees    Employee[]
+
+  @@map("offices")
 }
 
-model OrderDetails {
+model OrderDetail {
   orderNumber     Int
   productCode     String   @db.VarChar(15)
   quantityOrdered Int
   priceEach       Decimal  @db.Decimal(10, 2)
   orderLineNumber Int      @db.SmallInt
-  orders          Orders   @relation(fields: [orderNumber], references: [orderNumber], onDelete: NoAction, onUpdate: NoAction, map: "orderdetails_ibfk_1")
-  products        Products @relation(fields: [productCode], references: [productCode], onDelete: NoAction, onUpdate: NoAction, map: "orderdetails_ibfk_2")
+  orders          Order  @relation(fields: [orderNumber], references: [orderNumber], onDelete: NoAction, onUpdate: NoAction, map: "orderdetails_ibfk_1")
+  products        Product @relation(fields: [productCode], references: [productCode], onDelete: NoAction, onUpdate: NoAction, map: "orderdetails_ibfk_2")
 
   @@id([orderNumber, productCode])
   @@index([productCode], map: "productCode")
+
+  @@map("orderdetails")
 }
 
-model Orders {
+model Order {
   orderNumber    Int            @id
   orderDate      DateTime       @db.Date
   requiredDate   DateTime       @db.Date
@@ -80,31 +86,34 @@ model Orders {
   status         String         @db.VarChar(15)
   comments       String?        @db.Text
   customerNumber Int
-  orderdetails   OrderDetails[]
-  customers      Customers      @relation(fields: [customerNumber], references: [customerNumber], onDelete: NoAction, onUpdate: NoAction, map: "orders_ibfk_1")
+  orderdetails   OrderDetail[]
+  customers      Customer      @relation(fields: [customerNumber], references: [customerNumber], onDelete: NoAction, onUpdate: NoAction, map: "orders_ibfk_1")
 
   @@index([customerNumber], map: "customerNumber")
+  @@map("orders")
 }
 
-model payments {
+model Payment {
   customerNumber Int
   checkNumber    String    @db.VarChar(50)
   paymentDate    DateTime  @db.Date
   amount         Decimal   @db.Decimal(10, 2)
-  customers      Customers @relation(fields: [customerNumber], references: [customerNumber], onDelete: NoAction, onUpdate: NoAction, map: "payments_ibfk_1")
+  customers      Customer @relation(fields: [customerNumber], references: [customerNumber], onDelete: NoAction, onUpdate: NoAction, map: "payments_ibfk_1")
 
   @@id([customerNumber, checkNumber])
 }
 
-model ProductLines {
+model ProductLine {
   productLine     String     @id @db.VarChar(50)
   textDescription String?    @db.VarChar(4000)
   htmlDescription String?    @db.MediumText
   image           Bytes?     @db.MediumBlob
-  products        Products[]
+  products        Product[]
+
+  @@map("productlines")
 }
 
-model Products {
+model Product {
   productCode        String         @id @db.VarChar(15)
   productName        String         @db.VarChar(70)
   productLine        String         @db.VarChar(50)
@@ -114,8 +123,9 @@ model Products {
   quantityInStock    Int            @db.SmallInt
   buyPrice           Decimal        @db.Decimal(10, 2)
   MSRP               Decimal        @db.Decimal(10, 2)
-  orderdetails       OrderDetails[]
-  productlines       ProductLines   @relation(fields: [productLine], references: [productLine], onDelete: NoAction, onUpdate: NoAction, map: "products_ibfk_1")
+  orderdetails       OrderDetail[]
+  productlines       ProductLine   @relation(fields: [productLine], references: [productLine], onDelete: NoAction, onUpdate: NoAction, map: "products_ibfk_1")
 
   @@index([productLine], map: "productLine")
+  @@map("products")
 }

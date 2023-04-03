@@ -1,11 +1,13 @@
 import express, { type Express, type Request, type Response } from 'express'
 
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, type Product } from '@prisma/client'
+import bodyParser from 'body-parser'
 
 const app: Express = express()
-const port = 3000
+const PORT = 3000
+
 app.use(express.json())
-app.use(express.urlencoded())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 const prisma = new PrismaClient()
 
@@ -13,14 +15,19 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Klk')
 })
 
+app.get('/products', async (req: Request, res: Response) => {
+  const products: Product[] = await prisma.product.findMany()
+
+  res.json(products)
+})
+
 app.post('/products', async (req, res) => {
-  console.log(req.body)
-  const product = await prisma.products.create({
+  const product: Product = await prisma.product.create({
     data: req.body,
   })
   res.json({ product })
 })
 
-app.listen(port, () => {
-  console.log(`[Server]: I am running at https://localhost:${port}`)
+app.listen(PORT, () => {
+  console.log(`[Server]: I am running at https://localhost:${PORT}`)
 })
