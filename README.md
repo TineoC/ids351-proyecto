@@ -40,7 +40,7 @@ Now we're starting with the hard part
 
 1. First make sure you have [Docker](https://www.docker.com/) installed in your machine.
 2. Rename the file [.env.example](./.env.example) to just ".env"
-   1. Here, you need to replace the ROOT_PASSWORD field for the password your project manager will give you.
+   1. IMPORTANT. Rename both ROOT_PASSWORD from DB_PASSWORD and DATABASE_URL.
 3. Run ```docker compose up -d```
 4. If everything went fine your db is started in localhost on port 3307
 5. You can try connecting via Mysql Workbench or your favorite DB Management App with your root password.
