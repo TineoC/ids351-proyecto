@@ -27,3 +27,18 @@ GET http://localhost:3000/products/SHAB-204
 
 ###
 GET http://localhost:3000/products/topten
+
+
+
+###
+
+GET http://localhost:3000/employees
+
+
+###
+GET http://localhost:3000/employees/1002
+
+
+###
+
+GET  http://localhost:3000/employees/topten
