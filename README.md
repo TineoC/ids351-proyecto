@@ -41,7 +41,10 @@ Now we're starting with the hard part
 1. First make sure you have [Docker](https://www.docker.com/) installed in your machine.
 2. Copy the [.env.example](./.env.example) file and name it to just ".env"
 3. **IMPORTANT. Rename both ROOT_PASSWORD from DB_PASSWORD and DATABASE_URL.**
-4. Run ```docker compose up -d```
+4. Run 
+```
+$ docker compose up -d
+```
 5. If everything went fine your db is started in localhost on port 3307
 6. You can try connecting via Mysql Workbench or your favorite DB Management App with your root password.
 7. Now you need to connect your db with prisma
