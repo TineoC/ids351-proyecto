@@ -28,7 +28,7 @@ $ cd ids328-proyecto-final
 3. Run these commands inside the project directory
 
 ```
-$ npm run install
+$ npm install
 $ npm run dev
 ```
 
