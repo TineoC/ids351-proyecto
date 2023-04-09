@@ -33,13 +33,12 @@ $ cd ids328-proyecto-final
 ```
 
 3. Copy the [.env.example](./.env.example) file and name it to just ".env"
-4. Fill out the ROOT_PASSWORD inside double quotes ("")
 > **IMPORTANT. Rename both ROOT_PASSWORD from DB_PASSWORD and DATABASE_URL.**
-5. Run these commands inside the project directory
+4. Run these commands inside the project directory
 
 ```
 $ docker compose up -d
 ```
 
-6. Start requesting to the server on localhost:3000
-7. Your project is up and running 🎉
+5. Start requesting to the server on localhost:3000
+6. Your project is up and running 🎉
