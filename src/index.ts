@@ -1,15 +1,14 @@
 import express, { type Express, type Request, type Response } from 'express'
 
-import { PrismaClient, type Product } from '@prisma/client'
+import { type Product } from '@prisma/client'
 import bodyParser from 'body-parser'
+import prisma from './prisma'
 
 const app: Express = express()
 const PORT = 3000
 
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-
-const prisma = new PrismaClient()
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Klk')
