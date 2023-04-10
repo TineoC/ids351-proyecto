@@ -1,6 +1,7 @@
 import express, { type Express, type Request, type Response } from 'express'
 
 import bodyParser from 'body-parser'
+import prisma from './prisma'
 
 import productRouter from './routes/product'
 import employeesRouter from './routes/employees'
