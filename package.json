@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node ./src/index.ts",
-    "dev": "nodemon",
+    "dev": "nodemon -L",
     "start:prod": "npm run build && node ./dist/src/index.js",
     "build": "npx tsc",
     "lint": "npx eslint \"./**/*.js\" --cache --cache-strategy content --fix",
