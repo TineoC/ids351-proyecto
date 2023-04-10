@@ -10,7 +10,7 @@ POST http://localhost:3000/products
 Content-Type: application/json
 
 {
-    "productCode": "SHAB-10245",
+    "productCode": "SHAB-205",
     "productName": "Hyundai Sonata 2024",
     "productLine": "Classic Cars",
     "productScale": "1:12",
@@ -20,3 +20,25 @@ Content-Type: application/json
     "buyPrice": 568000,
     "MSRP": 215.60
 }
+
+###
+GET http://localhost:3000/products/SHAB-204
+
+
+###
+GET http://localhost:3000/products/topten
+
+
+
+###
+
+GET http://localhost:3000/employees
+
+
+###
+GET http://localhost:3000/employees/1002
+
+
+###
+
+GET  http://localhost:3000/employees/topten
