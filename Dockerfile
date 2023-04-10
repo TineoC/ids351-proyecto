@@ -17,6 +17,7 @@ COPY tsconfig.json ./
 RUN npm install
 
 RUN npm i -g prisma
+RUN npm i -g nodemon
 
 RUN prisma generate
 
