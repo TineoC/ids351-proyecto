@@ -28,7 +28,7 @@ $ cd ids328-proyecto-final
 3. Run these commands inside the project directory
 
 ```
-$ npm run install
+$ npm install
 $ npm run dev
 ```
 
@@ -39,15 +39,18 @@ $ npm run dev
 Now we're starting with the hard part
 
 1. First make sure you have [Docker](https://www.docker.com/) installed in your machine.
-2. Rename the file [.env.example](./.env.example) to just ".env"
-   1. IMPORTANT. Rename both ROOT_PASSWORD from DB_PASSWORD and DATABASE_URL.
-3. Run ```docker compose up -d```
-4. If everything went fine your db is started in localhost on port 3307
-5. You can try connecting via Mysql Workbench or your favorite DB Management App with your root password.
-6. Now you need to connect your db with prisma
-7. For this, run 
+2. Copy the [.env.example](./.env.example) file and name it to just ".env"
+3. **IMPORTANT. Rename both ROOT_PASSWORD from DB_PASSWORD and DATABASE_URL.**
+4. Run 
+```
+$ docker compose up -d
+```
+5. If everything went fine your db is started in localhost on port 3307
+6. You can try connecting via Mysql Workbench or your favorite DB Management App with your root password.
+7. Now you need to connect your db with prisma
+8. For this, run 
 
 ```
 $ npx prisma generate
 ```
-8. Start requesting to the server on localhost:3000
+9. Start requesting to the server on localhost:3000
