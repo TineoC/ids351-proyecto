@@ -75,7 +75,6 @@ model OrderDetail {
 
   @@id([orderNumber, productCode])
   @@index([productCode], map: "productCode")
-
   @@map("orderdetails")
 }
 
@@ -102,6 +101,7 @@ model Payment {
   customers      Customer @relation(fields: [customerNumber], references: [customerNumber], onDelete: NoAction, onUpdate: NoAction, map: "payments_ibfk_1")
 
   @@id([customerNumber, checkNumber])
+  @@map("payments")
 }
 
 model ProductLine {

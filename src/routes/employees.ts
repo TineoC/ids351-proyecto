@@ -4,23 +4,28 @@ import express, { type Request, type Response } from 'express'
 const employeesRouter = express.Router()
 
 const prisma = new PrismaClient()
-employeesRouter.get(
-  '/employees/topten',
-  async (req: Request, res: Response) => {
-    const result = await prisma.payment.findMany({
-      include: {
-        customers: true,
-      },
-    })
-    res.json(result)
-  }
-)
 
 employeesRouter.get('/employees', async (req: Request, res: Response) => {
   const employees: Employee[] = await prisma.employee.findMany()
 
   res.json(employees)
 })
+
+employeesRouter.get(
+  '/employees/topten',
+  async (req: Request, res: Response) => {
+    const result = await prisma.payment.findMany({
+      include: {
+        customers: {
+          select: {
+            salesRepEmployeeNumber: true,
+          },
+        },
+      },
+    })
+    res.json(result)
+  }
+)
 
 employeesRouter.get(
   '/employees/:employeeNumber',

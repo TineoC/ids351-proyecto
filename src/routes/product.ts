@@ -1,4 +1,4 @@
-import { type OrderDetail, PrismaClient, type Product } from '@prisma/client'
+import { PrismaClient, type Product } from '@prisma/client'
 import express, { type Request, type Response } from 'express'
 
 const productRouter = express.Router()
@@ -10,26 +10,32 @@ productRouter.get('/products', async (req: Request, res: Response) => {
 
   res.json(products)
 })
-interface ProductDetail {
+interface TopMoreSale {
+  quantityOrdered: number | null
   productCode: string
-  quantityOrdered: number
 }
+
 productRouter.get('/products/topten', async (req: Request, res: Response) => {
-  const products: Array<OrderDetail & { products: Product }> =
-    await prisma.orderDetail.findMany({
-      take: 10,
-      include: {
-        products: true,
-      },
-      orderBy: {
+  const groupByProductCode = await prisma.orderDetail.groupBy({
+    by: ['productCode'],
+    _sum: {
+      quantityOrdered: true,
+    },
+    orderBy: {
+      _sum: {
         quantityOrdered: 'desc',
       },
+    },
+    take: 10,
+  })
+  const productCodeTopMoreSale: TopMoreSale[] = groupByProductCode.map(
+    (value) => ({
+      productCode: value.productCode,
+      quantityOrdered: value._sum.quantityOrdered,
     })
-  const productsDetail: ProductDetail[] = products.map((orderDetail) => ({
-    productCode: orderDetail.productCode,
-    quantityOrdered: orderDetail.quantityOrdered,
-  }))
-  res.json(productsDetail)
+  )
+
+  res.json(productCodeTopMoreSale)
 })
 
 productRouter.post('/products', async (req, res) => {
