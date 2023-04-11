@@ -1,4 +1,4 @@
-# IDS328L-Proyecto-Final
+# IDS351-Proyecto-Final
 
 ## Installation guide
 
