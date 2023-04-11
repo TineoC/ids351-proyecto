@@ -22,7 +22,7 @@
  ```
 $ node -v
 $ git -v
-$ docker compose -v
+$ docker compose version
 ```
 
 2. Clone the repo
