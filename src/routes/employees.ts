@@ -14,15 +14,19 @@ employeesRouter.get('/employees', async (req: Request, res: Response) => {
 employeesRouter.get(
   '/employees/topten',
   async (req: Request, res: Response) => {
-    const result = await prisma.payment.findMany({
-      include: {
+    const result = await prisma.employee.findMany({
+      select: {
+        employeeNumber: true,
+        firstName: true,
+        lastName: true,
         customers: {
-          select: {
-            salesRepEmployeeNumber: true,
+          include: {
+            payments: true,
           },
         },
       },
     })
+
     res.json(result)
   }
 )
