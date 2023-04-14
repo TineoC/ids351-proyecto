@@ -3,28 +3,28 @@
 ## Installation guide
 
 1. First make sure you have [Node.js](https://nodejs.org/en), [Git](https://git-scm.com/) and [Docker](https://www.docker.com/)
- installed running 
- 
- ```
-$ node -v
-$ git -v
-$ docker compose version
-```
+ installed and running.
 
-2. Clone the repo
+    ```bash
+    node -v
+    git -v
+    docker compose version
+    ```
 
-```
-$ git clone https://gitlab.com/TineoChris/ids328l-proyecto-final
-$ cd ids328-proyecto-final
-```
+2. Clone the repo.
+
+    ```bash
+    git clone https://github.com/TineoC/ids351-proyecto
+    cd ids351-proyecto
+    ```
 
 3. Copy the [.env.example](./.env.example) file and name it to just ".env"
-> **IMPORTANT. Rename both ROOT_PASSWORD from DB_PASSWORD and DATABASE_URL.**
-4. Run these commands inside the project directory
+4. Rename both ROOT_PASSWORD from DB_PASSWORD and DATABASE_URL.
+5. Run these commands inside the project directory.
 
-```
-$ docker compose up -d
-```
+    ```bash
+    docker compose up -d
+    ```
 
-5. Start requesting to the server on localhost:3000
-6. Your project is up and running 🎉
+6. Start requesting to the server on localhost:3000.
+7. Your project is up and running 🎉.
