@@ -19,7 +19,7 @@
     ```
 
 3. Copy the [.env.example](./.env.example) file and name it to just ".env"
-4. Rename both ROOT_PASSWORD from DB_PASSWORD and DATABASE_URL.
+4. Inside ".env" rename both ROOT_PASSWORD from DB_PASSWORD and DATABASE_URL.
 5. Run these commands inside the project directory.
 
     ```bash
