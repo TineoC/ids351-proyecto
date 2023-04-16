@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node ./src/index.ts",
-    "dev": "nodemon -L",
+    "dev": "docker compose -f docker-compose.yml up --build",
     "start:prod": "npm run build && node ./dist/src/index.js",
     "build": "npx tsc",
     "lint": "npx eslint \"./**/*.js\" --cache --cache-strategy content --fix",

@@ -1,4 +1,4 @@
-import { PrismaClient, type Product } from '@prisma/client'
+import { Prisma, PrismaClient, type Product } from '@prisma/client'
 import express, { type Request, type Response } from 'express'
 
 const productRouter = express.Router()
@@ -39,10 +39,26 @@ productRouter.get('/products/topten', async (req: Request, res: Response) => {
 })
 
 productRouter.post('/products', async (req, res) => {
-  const product: Product = await prisma.product.create({
-    data: req.body,
-  })
-  res.json({ product })
+  try {
+    const product: Product = await prisma.product.create({
+      data: req.body,
+    })
+
+    res.json({ product })
+
+  } catch (e) {
+    if (e instanceof Prisma.PrismaClientKnownRequestError) {
+      // The .code property can be accessed in a type-safe manner
+      if (e.code === 'P2002') {
+        console.log(
+          'There is already a Product with this code'
+        )
+      }
+    }
+    throw e
+  }
+  
+
 })
 
 productRouter.get(

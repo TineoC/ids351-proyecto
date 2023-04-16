@@ -31,4 +31,4 @@ RUN prisma generate --schema ./prisma/schema.prisma
 EXPOSE 3000
 
 # A command to start the server
-CMD ["npm", "run", "dev"]
+CMD ["nodemon", "-L"]
