@@ -20,11 +20,6 @@
 
 3. Copy the [.env.example](./.env.example) file and name it to just ".env"
 4. Inside ".env" rename both ROOT_PASSWORD from DB_PASSWORD and DATABASE_URL.
-5. Run these commands inside the project directory.
-
-    ```bash
-    docker compose up -d
-    ```
-
+5. Run ```npm run dev```
 6. Start requesting to the server on localhost:3000.
 7. Your project is up and running 🎉.
