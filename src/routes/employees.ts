@@ -14,7 +14,7 @@ employeesRouter.get('/employees', async (req: Request, res: Response) => {
 employeesRouter.get(
   '/employees/topten',
   async (req: Request, res: Response) => {
-    const result = await prisma.employee.findMany({
+    let result = await prisma.employee.findMany({
       select: {
         employeeNumber: true,
         firstName: true,
@@ -27,7 +27,40 @@ employeesRouter.get(
       },
     })
 
-    res.json(result)
+    // Remove employees with no customers
+
+    result = result.filter((employee) => {
+      return employee.customers.length > 0
+    })
+
+    // Calculate total sales for each employee and sort them
+    let topTenEmployees = result.map((employee) => {
+      const totalSales = employee.customers.reduce((total, customer) => {
+        return (
+          total +
+          customer.payments.reduce((total, payment) => {
+            return total + payment.amount.toNumber()
+          }, 0)
+        )
+      }, 0)
+
+      const { firstName, lastName } = employee
+
+      return {
+        employeeNumber: employee.employeeNumber,
+        name: `${firstName} ${lastName}`,
+        totalSales,
+      }
+    })
+
+    topTenEmployees.sort((a, b) => {
+      return b.totalSales - a.totalSales
+    })
+
+    // Return the top 10 employees by sales
+    topTenEmployees = topTenEmployees.slice(0, 10)
+
+    res.json(topTenEmployees)
   }
 )
 
