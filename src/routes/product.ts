@@ -50,9 +50,9 @@ productRouter.post('/products', async (req, res) => {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       // The .code property can be accessed in a type-safe manner
       if (e.code === 'P2002') {
-        console.log(
-          'There is already a Product with this code'
-        )
+        return res.status(409).json({
+          error: 'There is already a product with this code'
+        })
       }
     }
     throw e
